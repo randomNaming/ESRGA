@@ -1,0 +1,9 @@
+Django==4.2.2
+realesrgan
+basicsr
+opencv-python
+torch
+torchvision
+numpy
+Pillow
+tqdm
