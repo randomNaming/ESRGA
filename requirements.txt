@@ -1,9 +1,9 @@
 Django==4.2.2
-realesrgan
-basicsr
-opencv-python
 torch
 torchvision
-numpy
+numpy==1.26.4
+opencv-python
 Pillow
 tqdm
+basicsr
+realesrgan
