@@ -1,4 +1,10 @@
 Django==4.2.2
+# PyTorch安装说明：
+# CPU版本（默认，适合CPU笔记本）：直接 pip install -r requirements.txt
+# GPU版本（适合有NVIDIA显卡的电脑）：
+#   CUDA 11.8: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu118
+#   CUDA 12.1: pip install torch torchvision --index-url https://download.pytorch.org/whl/cu121
+#   然后再安装其他依赖: pip install -r requirements.txt
 torch
 torchvision
 numpy==1.26.4
