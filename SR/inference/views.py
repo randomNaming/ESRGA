@@ -18,12 +18,21 @@ def home(request):
         return response
     elif arg['format'] == '0':
         pic = request.FILES.get("picture")
+        if pic is None:
+            return render(request, "index.html", {"error": "请选择要上传的图片文件"})
         f = open('input/inference.png',mode='wb')
         for chunk in pic.chunks():
             f.write(chunk)
         f.close()
         scale = int(arg['scale'])
-        inferenceSR('input/inference.png',scale)
+        try:
+            inferenceSR('input/inference.png',scale)
+        except Exception as e:
+            import traceback
+            error_msg = str(e)
+            print(f"处理图像时出错: {error_msg}")
+            print(traceback.format_exc())
+            return render(request, "index.html", {"error": f"处理图像时出错: {error_msg}"})
         return render(request,"index.html")
 
 @never_cache
@@ -40,9 +49,19 @@ def ZH(request):
         return response
     elif arg['format'] == '0':
         pic = request.FILES.get("picture")
+        if pic is None:
+            return render(request, "index.zh-CN.html", {"error": "请选择要上传的图片文件"})
         f = open('input/inference.png',mode='wb')
         for chunk in pic.chunks():
             f.write(chunk)
         f.close()
-        inferenceSR('input/inference.png')
+        try:
+            scale = int(arg.get('scale', 4))  # 默认scale为4
+            inferenceSR('input/inference.png', scale)
+        except Exception as e:
+            import traceback
+            error_msg = str(e)
+            print(f"处理图像时出错: {error_msg}")
+            print(traceback.format_exc())
+            return render(request, "index.zh-CN.html", {"error": f"处理图像时出错: {error_msg}"})
         return render(request,"index.zh-CN.html")
